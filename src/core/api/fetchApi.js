@@ -25,8 +25,8 @@
  */
 
 // Imports
+import Paginator from "../api/paginate.js";
 import CsvFetcher from "../api/csvFetcher.js";
-import Paginator from "../api/paginator.js";
 
 /**
  * FetchApi class for fetching and paginating data.

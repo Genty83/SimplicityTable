@@ -97,6 +97,7 @@ Section 2: This section contains the container styling.
   justify-content: space-between;
   align-items: center;
   padding-inline: var(--table-base-padding);
+  border-bottom: var(--table-inside-bd-width) solid var(--table-bd-color);
 }
 
 .action-container {
@@ -113,6 +114,7 @@ Section 2: This section contains the container styling.
   justify-content: center;
   align-items: center;
   padding-inline: var(--table-base-padding);
+  border-top: var(--table-inside-bd-width) solid var(--table-bd-color);
 }
 
 
