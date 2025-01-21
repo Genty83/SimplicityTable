@@ -1,0 +1,151 @@
+:root {
+  /* Table Base Variables */
+  --table-bg-color: #20232a;
+  --table-bd-color: #30363d;
+  --table-fg-color: #b9c6e4;
+  --table-shadow: 0 0 10px #30363d56;
+  --table-width: 100%;
+  --table-height: 100%;
+  --table-min-height: 900px;
+  --table-max-height: 1000px;
+  --table-bd-radius: 8px;
+  --table-base-transition: all 0.4s ease;
+  --table-outside-bd-width: 2px;
+  --table-inside-bd-width: 1px;
+  --table-font-family: "Roboto", sans-serif;
+  --table-font-size: 12px;
+  --table-font-weight: 400;
+  --table-base-gap: 0.4rem;
+  --table-base-padding: 0.5rem;
+  --table-top-container-height: 40px;
+  --table-bottom-container-height: 40px;
+  /* Table Header Variables */
+  --table-header-bg-color: #282c34;
+  --table-header-bd-color: #fb7185;
+  --table-header-fg-color: #b9c6e4;
+  --table-header-height: 40px;
+  /* Table Body Variables */
+  --table-row-bg-color: #20232a;
+  --table-row-fg-color: #b9c6e4;
+  --table-alternate-row-bg-color: #282c34;
+  --table-alternate-row-fg-color: #b9c6e4;
+  --table-gridline-color: #30363d;
+  --table-row-height: 35px;
+  /* Table Pagination Variables */
+  --table-pagination-btn-fg-color: #b9c6e4;
+  --table-pagination-btn-bg-hover-color: #30363d;
+  --table-pagination-btn-fg-active-color: #fb7185;
+}
+
+/*
+TABLE BASE RESET
+-------------------------------------------------
+Section 1: This section contains the base reset for the table.
+*/
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  padding: 2rem; /* For test purposes. Remove later */
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: max-content;
+}
+
+thead tr {
+  position: sticky;
+  top: 0;
+}
+
+/*
+TABLE CONTAINER STYLING
+-------------------------------------------------
+Section 2: This section contains the container styling.
+*/
+
+.table-container {
+  width: var(--table-width);
+  height: var(--table-height);
+  min-height: var(--table-min-height);
+  max-height: var(--table-max-height);
+  border-radius: var(--table-bd-radius);
+  background-color: var(--table-bg-color);
+  color: var(--table-fg-color);
+  border: var(--table-outside-bd-width) solid var(--table-bd-color);
+  box-shadow: var(--table-shadow);
+  font-family: var(--table-font-family);
+  font-size: var(--table-font-size);
+  font-weight: var(--table-font-weight);
+  display: grid;
+  grid-template-rows: var(--table-top-container-height) auto 1fr var(
+      --table-bottom-container-height
+    );
+  user-select: none;
+}
+
+.top-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: var(--table-base-padding);
+}
+
+.action-container {
+  display: flex;
+}
+
+.middle-container {
+  overflow: auto;
+  display: block;
+}
+
+.bottom-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-inline: var(--table-base-padding);
+}
+
+
+/*
+TABLE GENERIC STYLING
+-------------------------------------------------
+Section 2: This section contains the generic classes.
+*/
+
+.flex-row {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.flex-col {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.flex-row-wrap {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.flex-col-wrap {
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.align-center {
+  align-items: center;
+}
+
+justify-between {
+  justify-content: space-between;
+}
