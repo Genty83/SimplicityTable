@@ -64,6 +64,11 @@ table {
 thead tr {
   position: sticky;
   top: 0;
+  z-index: 1;
+  background-color: var(--table-header-bg-color);
+  color: var(--table-header-fg-color);
+  height: var(--table-header-height);
+  padding: var(--table-base-padding);
 }
 
 /*
@@ -148,6 +153,10 @@ Section 2: This section contains the generic classes.
   align-items: center;
 }
 
-justify-between {
+.justify-between {
   justify-content: space-between;
+}
+
+.base-gap {
+  gap: var(--table-base-gap);
 }

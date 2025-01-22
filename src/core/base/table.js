@@ -1,6 +1,7 @@
 // Imports
 import TableRenderer from "../components/tableRenderer.js";
 import FetchApi from "../api/fetchApi.js";
+import Headers from "./headers.js";
 
 export default class SimplicityTable extends TableRenderer {
   constructor(tableOptions = {}, paginationOptions = {}) {
@@ -11,11 +12,8 @@ export default class SimplicityTable extends TableRenderer {
       fetchType: tableOptions.fetchType,
     };
     this.paginationOptions = {
-      onEachSide: paginationOptions.onEachSide,
       onEnds: paginationOptions.onEnds,
-      ellipsis: paginationOptions.ellipsis,
-      firstLastButtons: paginationOptions.firstLastButtons,
-      nextPrevButtons: paginationOptions.nextPrevButtons,
+      onEachSide: paginationOptions.onEachSide
     };
 
     this.init();
@@ -24,8 +22,10 @@ export default class SimplicityTable extends TableRenderer {
   async init() {
     // Fetch data
     await this.fetchData();
-    // Render table
+    // Render table elements
     this.renderElements();
+    // Render table
+    this.renderTable();
   }
 
   async fetchData() {
@@ -46,9 +46,15 @@ export default class SimplicityTable extends TableRenderer {
     }
   }
 
-  renderTable() {}
+  renderTable() {
+    // Render headers
+    this.renderHeaders();
+  }
 
-  renderHeaders() {}
+  renderHeaders() {
+    const headers = new Headers(this);
+    headers.renderHeaders();
+  }
 
   renderBody() {}
 

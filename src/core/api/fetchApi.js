@@ -10,7 +10,7 @@
  * - Fetch CSV data from a specified URL.
  * - Handle errors gracefully during the fetching process.
  * - Paginate the fetched data into manageable chunks.
- * - Customize pagination parameters such as the number of pages on each side, ellipsis, and first/last buttons.
+ * - Customize pagination parameters such as the number of pages on each side.
  *
  * Classes:
  * - FetchApi: Handles fetching data and paginating the results.
@@ -25,7 +25,7 @@
  */
 
 // Imports
-import Paginator from "../api/paginate.js";
+import Paginator from "../api/paginator.js";
 import CsvFetcher from "../api/csvFetcher.js";
 
 /**
@@ -37,21 +37,15 @@ export default class FetchApi {
    * @param {string} url - The URL of the data to fetch.
    * @param {string} fetchType - The type of data to fetch (default: "csv").
    * @param {Object} paginationParams - Pagination parameters.
-   * @param {number} paginationParams.onEachSide - Number of pages to display on each side of the current page (default: 1).
    * @param {number} paginationParams.onEnds - Number of pages to display at the beginning and end (default: 1).
-   * @param {boolean} paginationParams.ellipsis - Whether to display ellipsis for truncated page ranges (default: true).
-   * @param {boolean} paginationParams.firstLastButtons - Whether to display first and last buttons (default: true).
-   * @param {boolean} paginationParams.prevNextButtons - Whether to display previous and next buttons (default: true).
+   * @param {number} paginationParams.onEachSide - Number of pages to display on each side of the current page (default: 1).
    */
   constructor(url, fetchType = "csv", paginationParams = {}) {
     this.url = url;
     this.fetchType = fetchType;
     this.paginationParams = {
-      onEachSide: paginationParams.onEachSide || 1,
       onEnds: paginationParams.onEnds || 1,
-      ellipsis: paginationParams.ellipsis || true,
-      firstLastButtons: paginationParams.firstLastButtons || true,
-      prevNextButtons: paginationParams.prevNextButtons || true,
+      onEachSide: paginationParams.onEachSide || 1,
     };
   }
 
@@ -84,8 +78,10 @@ export default class FetchApi {
       const paginator = new Paginator(
         data,
         csvFetcher.headers,
-        { page, limit },
-        this.paginationParams
+        page,
+        limit,
+        this.paginationParams.onEnds,
+        this.paginationParams.onEachSide,
       );
       return paginator.paginate();
     } catch (error) {

@@ -82,4 +82,8 @@ export default class CsvFetcher {
     this.headers = headers;
     return results;
   }
+
+  getHeaders() {
+    return this.headers;
+  }
 }
