@@ -1,28 +1,24 @@
 /**
- * FetchApi Module
- *
- * Overview:
- * This module provides functionality for fetching data from a specified URL and converting it into a paginated format. 
- * The main focus of this module is to handle fetching CSV data and paginate the results for easier consumption. 
- * It includes the `FetchApi` class which manages the fetching and pagination process.
- *
- * Features:
- * - Fetch CSV data from a specified URL.
- * - Handle errors gracefully during the fetching process.
- * - Paginate the fetched data into manageable chunks.
- * - Customize pagination parameters such as the number of pages on each side.
- *
- * Classes:
- * - FetchApi: Handles fetching data and paginating the results.
- *
- * Usage:
- * To use this module, create an instance of the `FetchApi` class by passing the URL, fetch type, and pagination parameters.
- * Then, call the `fetchData` method to retrieve and paginate the data.
- *
- * Example:
- * const fetchApi = new FetchApi('https://example.com/data.csv');
- * fetchApi.fetchData(1, 10).then(data => console.log(data)).catch(error => console.error(error));
+ * @module FetchApi
+ * @description
+ * The FetchApi module provides a class for fetching data from a specified URL and paginating the results. 
+ * It supports fetching CSV data and allows filtering and paginating the fetched data based on specified parameters.
+ * 
+ * Dependencies:
+ * - CsvFetcher: A class for fetching and converting CSV data from a specified URL into a structured JSON format.
+ * - Paginator: A class for paginating data.
+ * 
+ * Example usage:
+ * ```javascript
+ * const fetchApi = new FetchApi("https://example.com/data.csv", "csv", { onEnds: 2, onEachSide: 2 }, { column: "value" });
+ * fetchApi.fetchData(1, 10).then(data => {
+ *   console.log(data);
+ * }).catch(error => {
+ *   console.error(error);
+ * });
+ * ```
  */
+
 
 // Imports
 import Paginator from "../api/paginator.js";
@@ -39,14 +35,16 @@ export default class FetchApi {
    * @param {Object} paginationParams - Pagination parameters.
    * @param {number} paginationParams.onEnds - Number of pages to display at the beginning and end (default: 1).
    * @param {number} paginationParams.onEachSide - Number of pages to display on each side of the current page (default: 1).
+   * @param {Object} [filterParams={}] - An optional dictionary of parameters to filter the data.
    */
-  constructor(url, fetchType = "csv", paginationParams = {}) {
+  constructor(url, fetchType = "csv", paginationParams = {}, filterParams = {}) {
     this.url = url;
     this.fetchType = fetchType;
     this.paginationParams = {
       onEnds: paginationParams.onEnds || 1,
       onEachSide: paginationParams.onEachSide || 1,
     };
+    this.filterParams = filterParams;
   }
 
   /**
@@ -73,7 +71,7 @@ export default class FetchApi {
    */
   async fetchCsv(page = 1, limit = 10) {
     try {
-      const csvFetcher = new CsvFetcher(this.url);
+      const csvFetcher = new CsvFetcher(this.url, this.filterParams);
       const data = await csvFetcher.fetch();
       const paginator = new Paginator(
         data,

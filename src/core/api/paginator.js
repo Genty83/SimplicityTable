@@ -1,4 +1,24 @@
 /**
+ * @module Paginator
+ * @description
+ * The Paginator module extends the functionality of the GeneratePaginationButtons module to handle paginating results.
+ * It provides a class for paginating results and returning an object containing the paginated data and metadata,
+ * including headers and pagination buttons. The module also allows customizing the number of buttons displayed
+ * at the start, end, and on each side of the current page, as well as custom labels for ellided, first, prev,
+ * next, and last buttons.
+ *
+ * Dependencies:
+ * - GeneratePaginationButtons: A class for generating pagination buttons.
+ *
+ * Example usage:
+ * ```javascript
+ * const paginator = new Paginator(results, headers, 1, 10, 2, 2, { ellided: "...", first: "«", prev: "prev", next: "next", last: "»" });
+ * const paginatedData = paginator.paginate();
+ * console.log(paginatedData);
+ * ```
+ */
+
+/**
  * Class to generate pagination buttons based on the current page and total pages.
  */
 class GeneratePaginationButtons {
