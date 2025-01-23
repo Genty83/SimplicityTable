@@ -216,6 +216,7 @@ export default class Paginator extends GeneratePaginationButtons {
       endIndex: this.endIndex,
       next: this.endIndex < this.count ? this.page + 1 : null,
       previous: this.startIndex > 0 ? this.page - 1 : null,
+      labels: this.labels,
     };
   }
 }

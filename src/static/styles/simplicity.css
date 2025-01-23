@@ -141,7 +141,7 @@ Section 2: This section contains the container styling.
 
 .bottom-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   padding-inline: var(--table-base-padding);
   border-top: var(--table-inside-bd-width) solid var(--table-bd-color);
@@ -216,6 +216,28 @@ Section 2: This section contains the ui classes.
   accent-color: var(--table-ui-checked-color);
 }
 
+.pagination-btn {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  color: var(--table-ui-fg-color);
+  border-radius: var(--table-bd-radius);
+  transition: var(--table-base-transition);
+  padding-inline: var(--table-base-padding);
+  height: 30px;
+  min-width: 30px;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+}
+
+.pagination-btn:hover {
+  background-color: var(--table-pagination-btn-bg-hover-color);
+}
+
+.pagination-btn.page-active {
+  border: 2px solid var(--table-pagination-btn-fg-active-color);
+}
 
 /*
 TABLE GENERIC STYLING

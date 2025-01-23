@@ -3,19 +3,26 @@ import TableRenderer from "../components/tableRenderer.js";
 import FetchApi from "../api/fetchApi.js";
 import Headers from "./headers.js";
 import TableBody from "./body.js";
+import Pagination from "./pagination.js";
 
 export default class SimplicityTable extends TableRenderer {
   constructor(tableOptions = {}, paginationOptions = {}) {
-    super(tableOptions.tableId);
+    super(tableOptions.tableId, tableOptions.pageLimitList);
     this.tableOptions = {
       tableId: tableOptions.tableId,
       url: tableOptions.url,
       fetchType: tableOptions.fetchType,
+      page: tableOptions.page,
+      limit: tableOptions.limit,
+      pageLimitList: tableOptions.pageLimitList,
     };
     this.paginationOptions = {
       onEnds: paginationOptions.onEnds,
       onEachSide: paginationOptions.onEachSide
     };
+
+    this.page = this.tableOptions.page;
+    this.limit = this.tableOptions.limit;
 
     this.init();
   }
@@ -37,9 +44,13 @@ export default class SimplicityTable extends TableRenderer {
         this.tableOptions.fetchType,
         this.paginationOptions
       );
-      const data = await fetchedData.fetchData();
+      const data = await fetchedData.fetchData(
+        this.page,
+        this.limit
+      );
       this.dataObject = data;
       this.headers =this.dataObject.headers;
+      console.log(this.dataObject); // Remove at the end. Used for debugging
       return this.dataObject;
     } catch (error) {
       console.error("Error retrieving data!!", error);
@@ -60,8 +71,15 @@ export default class SimplicityTable extends TableRenderer {
 
   renderBody() {
     const body = new TableBody(this);
+    body.clearBody();
     body.renderRows(0);
+    // Render pagination
+    const pagination = new Pagination(this);
+    pagination.render();
   }
 
-  renderPagination() {}
+  async update() {
+    await this.fetchData();
+    this.renderBody();
+  }
 }

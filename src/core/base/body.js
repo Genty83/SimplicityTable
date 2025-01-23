@@ -104,4 +104,12 @@ export default class TableBody {
     });
     return firstCell;
   }
+
+  /**
+   * Clears the table body of all rows.
+   */
+  clearBody() {
+    this.tableInstance.tbody.innerHTML = "";
+    this.visibleRows = [];
+  }
 }
