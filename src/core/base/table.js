@@ -2,6 +2,7 @@
 import TableRenderer from "../components/tableRenderer.js";
 import FetchApi from "../api/fetchApi.js";
 import Headers from "./headers.js";
+import TableBody from "./body.js";
 
 export default class SimplicityTable extends TableRenderer {
   constructor(tableOptions = {}, paginationOptions = {}) {
@@ -39,7 +40,6 @@ export default class SimplicityTable extends TableRenderer {
       const data = await fetchedData.fetchData();
       this.dataObject = data;
       this.headers =this.dataObject.headers;
-      console.log(this.dataObject);
       return this.dataObject;
     } catch (error) {
       console.error("Error retrieving data!!", error);
@@ -49,6 +49,8 @@ export default class SimplicityTable extends TableRenderer {
   renderTable() {
     // Render headers
     this.renderHeaders();
+    // Render body
+    this.renderBody();
   }
 
   renderHeaders() {
@@ -56,7 +58,10 @@ export default class SimplicityTable extends TableRenderer {
     headers.renderHeaders();
   }
 
-  renderBody() {}
+  renderBody() {
+    const body = new TableBody(this);
+    body.renderRows(0);
+  }
 
   renderPagination() {}
 }

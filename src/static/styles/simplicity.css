@@ -35,6 +35,14 @@
   --table-pagination-btn-fg-color: #b9c6e4;
   --table-pagination-btn-bg-hover-color: #30363d;
   --table-pagination-btn-fg-active-color: #fb7185;
+  /* Table Ui Variables */
+  --table-ui-bg-color: #20232a;
+  --table-ui-fg-color: #b9c6e4;
+  --table-ui-bd-color: #30363d;
+  --table-ui-shadow: 0 0 10px #30363d56;
+  --table-ui-focus-color: #fb7185;
+  --table-ui-checked-color: #fb7185;
+  --table-ui-hover-fg-color: #818ba2;
 }
 
 /*
@@ -69,6 +77,23 @@ thead tr {
   color: var(--table-header-fg-color);
   height: var(--table-header-height);
   padding: var(--table-base-padding);
+}
+
+th {
+  position: relative;
+  padding-inline: var(--table-base-padding);
+}
+
+tr {
+  background-color: var(--table-row-bg-color);
+  color: var(--table-row-fg-color);
+  height: var(--table-row-height);
+  border-bottom: var(--table-inside-bd-width) solid var(--table-gridline-color);
+}
+
+tr:nth-child(even) {
+  background-color: var(--table-alternate-row-bg-color);
+  color: var(--table-alternate-row-fg-color);
 }
 
 /*
@@ -122,6 +147,75 @@ Section 2: This section contains the container styling.
   border-top: var(--table-inside-bd-width) solid var(--table-bd-color);
 }
 
+/*
+TABLE HEADER STYLING
+-------------------------------------------------
+Section 3: This section contains the header classes.
+*/
+
+.icon-btn.table-sort-btn:hover {
+  color: var(--table-ui-hover-fg-color);
+}
+
+.header-bottom-border {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--table-header-bd-color);
+}
+
+/*
+TABLE ROW STYLING
+-------------------------------------------------
+Section 3: This section contains the row classes.
+*/
+
+.first-cell {
+  padding-inline: var(--table-base-padding);
+}
+
+.table-cell {
+  padding-inline: var(--table-base-padding);
+}
+
+/*
+TABLE UI STYLING
+-------------------------------------------------
+Section 2: This section contains the ui classes.
+*/
+.table-header-control {
+  outline: none;
+  border: 1px solid var(--table-ui-bd-color);
+  background-color: var(--table-ui-bg-color);
+  color: var(--table-ui-fg-color);
+  border-radius: var(--table-bd-radius);
+  transition: var(--table-base-transition);
+  padding-inline: var(--table-base-padding);
+  height: 30px;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.table-header-control:focus {
+  outline: 2px solid var(--table-ui-focus-color);
+  outline-offset: 1px;
+}
+
+.icon-btn {
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  transition: var(--table-base-transition);
+  padding: 0.2rem;
+}
+
+.table-checkbox {
+  accent-color: var(--table-ui-checked-color);
+}
+
 
 /*
 TABLE GENERIC STYLING
@@ -159,4 +253,8 @@ Section 2: This section contains the generic classes.
 
 .base-gap {
   gap: var(--table-base-gap);
+}
+
+.base-padding {
+  padding: var(--table-base-padding);
 }
