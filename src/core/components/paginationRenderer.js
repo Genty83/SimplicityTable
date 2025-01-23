@@ -160,6 +160,6 @@ export default class PaginationRenderer {
   updateTable(limit) {
     this.tableInstance.page = 1;
     this.tableInstance.limit = parseInt(limit, 10);
-    this.tableInstance.update();
+    this.tableInstance.update(true);
   }
 }

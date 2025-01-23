@@ -22,8 +22,6 @@ export default class Headers extends HeaderRenderer {
    * Clears the current headers and creates a new row of headers.
    */
   renderHeaders() {
-    // Clear the headers
-    this.clearHeaders();
     // Create a new row element
     const tr = createNewElement({
       tag: "tr",
@@ -35,13 +33,5 @@ export default class Headers extends HeaderRenderer {
     this.headers.forEach((header) =>
       this.createHeader(header, tr, this.headers.indexOf(header))
     );
-  }
-
-  /**
-   * Clear the headers of the table.
-   * Clears the current content of the table header.
-   */
-  clearHeaders() {
-    this.tableInstance.thead.innerHTML = "";
   }
 }

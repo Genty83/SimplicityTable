@@ -19,7 +19,6 @@
  * ```
  */
 
-
 // Imports
 import Paginator from "../api/paginator.js";
 import CsvFetcher from "../api/csvFetcher.js";
@@ -54,9 +53,9 @@ export default class FetchApi {
    * @returns {Promise<Object>} - A promise that resolves to the paginated data.
    * @throws {Error} - Throws an error if the fetch type is invalid.
    */
-  async fetchData(page = 1, limit = 10) {
+  async fetchData(page = 1, limit = 10, filterParams = {}) {
     if (this.fetchType === "csv") {
-      return this.fetchCsv(page, limit);
+      return this.fetchCsv(page, limit, filterParams);
     } else {
       throw new Error("Invalid fetch type");
     }
@@ -66,21 +65,26 @@ export default class FetchApi {
    * Fetch CSV data from the specified URL and paginate the results.
    * @param {number} page - The current page number (default: 1).
    * @param {number} limit - The number of results per page (default: 10).
+   * @param {Object} filterParams - The parameters to filter the data.
    * @returns {Promise<Object>} - A promise that resolves to the paginated CSV data.
    * @throws {Error} - Throws an error if there is an issue fetching the CSV data.
    */
-  async fetchCsv(page = 1, limit = 10) {
+  async fetchCsv(page = 1, limit = 10, filterParams = {}) {
     try {
-      const csvFetcher = new CsvFetcher(this.url, this.filterParams);
+      // Fetch and filter data using CsvFetcher
+      const csvFetcher = new CsvFetcher(this.url, filterParams);
       const data = await csvFetcher.fetch();
+
+      // Paginate the filtered data
       const paginator = new Paginator(
         data,
         csvFetcher.headers,
         page,
         limit,
         this.paginationParams.onEnds,
-        this.paginationParams.onEachSide,
+        this.paginationParams.onEachSide
       );
+
       return paginator.paginate();
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -88,3 +92,4 @@ export default class FetchApi {
     }
   }
 }
+

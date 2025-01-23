@@ -24,6 +24,7 @@ export default class SimplicityTable extends TableRenderer {
     this.page = this.tableOptions.page;
     this.limit = this.tableOptions.limit;
     this.pageLimitList = tableOptions.pageLimitList;
+    this.filterParams = {};
 
     this.init();
   }
@@ -34,7 +35,7 @@ export default class SimplicityTable extends TableRenderer {
     // Render table elements
     this.renderElements();
     // Render table
-    this.renderTable();
+    this.update(true);
   }
 
   async fetchData() {
@@ -45,7 +46,11 @@ export default class SimplicityTable extends TableRenderer {
         this.tableOptions.fetchType,
         this.paginationOptions
       );
-      const data = await fetchedData.fetchData(this.page, this.limit);
+      const data = await fetchedData.fetchData(
+        this.page,
+        this.limit,
+        this.filterParams
+      );
       this.dataObject = data;
       this.headers = this.dataObject.headers;
       //console.log(this.dataObject); // Remove at the end. Used for debugging
@@ -55,14 +60,8 @@ export default class SimplicityTable extends TableRenderer {
     }
   }
 
-  renderTable() {
-    // Render headers
-    this.renderHeaders();
-    // Update
-    this.update();
-  }
-
   renderHeaders() {
+    this.thead.innerHTML = "";
     const headers = new Headers(this);
     headers.renderHeaders();
   }
@@ -76,16 +75,41 @@ export default class SimplicityTable extends TableRenderer {
     pagination.render();
   }
 
-  async update() {
-    await this.fetchData();
-    this.renderBody();
+  async update(refreshHeaders = false) {
+    await this.fetchData(this.page, this.limit, this.filterParams);
+    this.showLoader();
+    setTimeout(() => {
+      if (refreshHeaders) this.renderHeaders();
+      this.renderBody();
+      this.hideLoader();
+    }, 2000);
     this.updateRowsShownParagragh();
   }
 
   updateRowsShownParagragh() {
+    const start = this.dataObject.startIndex + 1;
+    const end = this.dataObject.endIndex;
+    const count = this.dataObject.count;
+
     this.rowsShownParagragh.textContent = `
-      Showing ${this.dataObject.startIndex + 1} - 
-      ${this.dataObject.endIndex} of ${this.dataObject.count} Total Rows
+      Showing ${start} to ${end} of ${count} total entries
       `;
+  }
+
+  showLoader() {
+    this.loader.style.display = "block";
+  }
+
+  hideLoader() {
+    this.loader.style.display = "none";
+  }
+
+  addFilterParams(header, value) {
+    if (value === "All") {
+      delete this.filterParams[header];
+    } else {
+      this.filterParams[header] = value;
+    }
+    this.update();
   }
 }

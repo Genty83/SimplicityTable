@@ -10,7 +10,8 @@ export default class HeaderRenderer {
    */
   constructor(tableInstance) {
     this.tableInstance = tableInstance;
-    this.data = tableInstance.dataObject.results; // Assuming results is the array of row data
+    this.data = tableInstance.dataObject.results;
+    console.log(this.data.length);
   }
 
   /**
@@ -135,6 +136,9 @@ export default class HeaderRenderer {
         placeholder: `Search By ${header}`,
       },
       appendTo: headerContent,
+      eventHandlers: {
+        input: (e) => this.onFilterChange(e, columnIndex),
+      },
     });
 
     const select = createNewElement({
@@ -143,12 +147,15 @@ export default class HeaderRenderer {
         class: "table-header-control table-filter",
       },
       appendTo: headerContent,
+      eventHandlers: {
+        change: (e) => this.onFilterChange(e, columnIndex),
+      },
     });
 
     createNewElement({
       tag: "option",
-      textContent: `Filter By [${header}]`,
-      attributes: { value: "" },
+      textContent: "All",
+      attributes: { value: "All" },
       appendTo: select,
     });
 
@@ -173,5 +180,16 @@ export default class HeaderRenderer {
       attributes: { class: "header-bottom-border" },
       appendTo: th,
     });
+  }
+
+  /**
+   * Handle filter change events.
+   * @param {Event} e - The change event.
+   * @param {number} columnIndex - The index of the column for the filter.
+   */
+  onFilterChange(e, columnIndex) {
+    const key = this.tableInstance.headers[columnIndex];
+    const value = e.target.value;
+    this.tableInstance.addFilterParams(key, value);
   }
 }

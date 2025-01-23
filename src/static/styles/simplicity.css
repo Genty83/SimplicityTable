@@ -43,6 +43,15 @@
   --table-ui-focus-color: #fb7185;
   --table-ui-checked-color: #fb7185;
   --table-ui-hover-fg-color: #818ba2;
+  /** Loader Variables */
+  --loader-light-color: #b9c6e4;
+  --loader-medium-color: #30363d;
+  --loader-dark-color: #fb7185;
+  /* Tooltip Variables */
+  --tooltip-bg-color: #20232a;
+  --tooltip-fg-color: #b9c6e4;
+  --tooltip-bd-color: #30363d;
+  --tooltip-shadow-color: #30363d56;
 }
 
 /*
@@ -285,4 +294,101 @@ Section 2: This section contains the generic classes.
 
 .base-padding {
   padding: var(--table-base-padding);
+}
+
+/*
+TABLE LOADER STYLING
+-------------------------------------------------
+Section 2: This section contains the loader classes.
+*/
+.loader {
+  height: 3px;
+  width: 100%;
+  background-color: var(--loader-medium-color);
+  display: block; /* Make sure it's displayed */
+  overflow: hidden; /* Hide the part of the element that exceeds the bounds */
+}
+
+.loader::before {
+  content: "";
+  display: block;
+  height: 100%;
+  width: 100%;
+  background-color: var(--loader-light-color);
+  animation: loading 3s linear infinite;
+}
+
+@keyframes loading {
+  0% {
+    transform: translateX(-100%); background-color: var(--loader-medium-color);
+  }
+  50% {
+    transform: translateX(100%); background-color: var(--loader-light-color);
+  }
+  100% {
+    transform: translateX(100%); background-color: var(--loader-dark-color);
+  }
+}
+
+
+/*
+TABLE TOOLTIP STYLING
+-------------------------------------------------
+Section 2: This section contains the tooltip classes.
+*/
+[tooltip] {
+  position: relative;
+}
+
+[tooltip]:hover::after {
+  content: attr(tooltip);
+  position: absolute;
+  padding: 0.3rem;
+  background-color: var(--tooltip-bg-color);
+  color: var(--tooltip-fg-color);
+  border: 1px solid var(--tooltip-bd-color);
+  border-radius: var(--base-border-radius);
+  box-shadow: 0 0 5px var(--tooltip-shadow-color);
+  font-size: 0.8rem;
+  z-index: 1;
+  text-wrap: nowrap;
+  font-size: 0.7rem;
+  opacity: 0;
+  visibility: hidden;
+  animation: fadeIn 1.5s ease-in forwards, fadeOut 1.5s ease-in 3s forwards;
+}
+
+[tooltip]:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+.tooltip-bottom-left::after {
+  top: calc(100% + 10px);
+  left: 0;
+}
+
+.tooltip-bottom-right::after {
+  top: calc(100% + 10px);
+  right: 0;
+}
+
+.tooltip-top-left::after {
+  bottom: calc(100% + 10px);
+  left: 0;
+}
+
+.tooltip-top-right::after {
+  bottom: calc(100% + 10px);
+  right: 0;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
 }

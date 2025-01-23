@@ -1,12 +1,12 @@
 /**
  * @module CsvFetcher
  * @description
- * The CsvFetcher module provides a class for fetching and converting CSV data from a specified URL into a structured JSON format. 
+ * The CsvFetcher module provides a class for fetching and converting CSV data from a specified URL into a structured JSON format.
  * It also supports filtering the fetched data based on specified parameters.
- * 
+ *
  * Dependencies:
  * - PapaParse: A CSV parser library to convert CSV data to JSON.
- * 
+ *
  * Example usage:
  * ```javascript
  * const csvFetcher = new CsvFetcher("https://example.com/data.csv", { column: "value" });
@@ -17,7 +17,6 @@
  * });
  * ```
  */
-
 
 export default class CsvFetcher {
   /**
@@ -63,14 +62,20 @@ export default class CsvFetcher {
   }
 
   /**
-   * Filter the JSON data based on the provided filter parameters.
+   * Filter the JSON data based on the provided filter parameters with lazy filtering.
    * @param {Array<Object>} data - The JSON data to filter.
    * @returns {Array<Object>} - The filtered JSON data.
    */
   filterData(data) {
-    return data.filter(row => {
+    return data.filter((row) => {
       return Object.entries(this.filterParams).every(([key, value]) => {
-        return row[key] == value;
+        if (row[key]) {
+          return row[key]
+            .toString()
+            .toLowerCase()
+            .includes(value.toLowerCase());
+        }
+        return false;
       });
     });
   }

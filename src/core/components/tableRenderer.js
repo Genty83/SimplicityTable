@@ -11,6 +11,7 @@ export default class TableRenderer {
     this.createContainerElements();
     this.createTableElements();
     this.createTopContainerElements();
+    this.createActionContainerElements();
     this.createBottomContainerElements();
   }
 
