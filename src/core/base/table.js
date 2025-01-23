@@ -18,7 +18,7 @@ export default class SimplicityTable extends TableRenderer {
     };
     this.paginationOptions = {
       onEnds: paginationOptions.onEnds,
-      onEachSide: paginationOptions.onEachSide
+      onEachSide: paginationOptions.onEachSide,
     };
 
     this.page = this.tableOptions.page;
@@ -45,12 +45,9 @@ export default class SimplicityTable extends TableRenderer {
         this.tableOptions.fetchType,
         this.paginationOptions
       );
-      const data = await fetchedData.fetchData(
-        this.page,
-        this.limit
-      );
+      const data = await fetchedData.fetchData(this.page, this.limit);
       this.dataObject = data;
-      this.headers =this.dataObject.headers;
+      this.headers = this.dataObject.headers;
       //console.log(this.dataObject); // Remove at the end. Used for debugging
       return this.dataObject;
     } catch (error) {
@@ -61,8 +58,8 @@ export default class SimplicityTable extends TableRenderer {
   renderTable() {
     // Render headers
     this.renderHeaders();
-    // Render body
-    this.renderBody();
+    // Update
+    this.update();
   }
 
   renderHeaders() {
@@ -82,5 +79,13 @@ export default class SimplicityTable extends TableRenderer {
   async update() {
     await this.fetchData();
     this.renderBody();
+    this.updateRowsShownParagragh();
+  }
+
+  updateRowsShownParagragh() {
+    this.rowsShownParagragh.textContent = `
+      Showing ${this.dataObject.startIndex + 1} - 
+      ${this.dataObject.endIndex} of ${this.dataObject.count} Total Rows
+      `;
   }
 }

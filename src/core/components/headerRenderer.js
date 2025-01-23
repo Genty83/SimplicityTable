@@ -147,7 +147,7 @@ export default class HeaderRenderer {
 
     createNewElement({
       tag: "option",
-      textContent: "Filter",
+      textContent: `Filter By [${header}]`,
       attributes: { value: "" },
       appendTo: select,
     });

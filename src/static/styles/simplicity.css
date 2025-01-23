@@ -205,8 +205,6 @@ Section 2: This section contains the ui classes.
   outline-offset: 1px;
 }
 
-.table-control 
-
 .icon-btn {
   background-color: transparent;
   border: none;
@@ -218,6 +216,10 @@ Section 2: This section contains the ui classes.
 
 .table-checkbox {
   accent-color: var(--table-ui-checked-color);
+}
+
+.quick-search-input {
+  width: 350px;
 }
 
 .pagination-btn {

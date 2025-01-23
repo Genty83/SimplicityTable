@@ -150,6 +150,7 @@ export default class PaginationRenderer {
         appendTo: goToPageSelect,
       });
     }
+    goToPageSelect.value = this.tableInstance.page;
   }
 
   /**

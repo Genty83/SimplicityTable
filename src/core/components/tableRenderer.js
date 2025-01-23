@@ -1,8 +1,7 @@
-
 // Imports
 import { createNewElement } from "../../utils/utils.js";
 
-export default class TableRenderer { 
+export default class TableRenderer {
   constructor(tableId) {
     this.container = document.querySelector(".table-container");
     this.tableId = tableId;
@@ -11,6 +10,7 @@ export default class TableRenderer {
   renderElements() {
     this.createContainerElements();
     this.createTableElements();
+    this.createTopContainerElements();
     this.createBottomContainerElements();
   }
 
@@ -54,8 +54,37 @@ export default class TableRenderer {
     });
   }
 
-  createBottomContainerElements() {
+  createTopContainerElements() {
+    this.rowsShownParagragh = createNewElement({
+      tag: "p",
+      textContent: "Rows shown",
+      appendTo: this.topContainer,
+    });
 
+    this.topRightContainer = createNewElement({
+      attributes: { class: "flex-row align-center base-gap" },
+      appendTo: this.topContainer,
+    });
+
+    this.searchInput = createNewElement({
+      tag: "input",
+      attributes: {
+        class: "table-header-control quick-search-input",
+        type: "text",
+        placeholder: "Quick Search...",
+      },
+      appendTo: this.topRightContainer,
+    });
+  }
+
+  createActionContainerElements() {
+    this.loader = createNewElement({
+      attributes: { class: "loader" },
+      appendTo: this.actionContainer,
+    });
+  }
+
+  createBottomContainerElements() {
     this.bottomLeftContainer = createNewElement({
       attributes: { class: "flex-row align-center base-gap" },
       appendTo: this.bottomContainer,
