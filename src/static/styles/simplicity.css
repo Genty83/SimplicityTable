@@ -6,8 +6,8 @@
   --table-shadow: 0 0 10px #30363d56;
   --table-width: 100%;
   --table-height: 100%;
-  --table-min-height: 900px;
-  --table-max-height: 1000px;
+  --table-min-height: 800px;
+  --table-max-height: 800px;
   --table-bd-radius: 8px;
   --table-base-transition: all 0.4s ease;
   --table-outside-bd-width: 2px;
@@ -185,7 +185,8 @@ TABLE UI STYLING
 -------------------------------------------------
 Section 2: This section contains the ui classes.
 */
-.table-header-control {
+.table-header-control,
+.table-control {
   outline: none;
   border: 1px solid var(--table-ui-bd-color);
   background-color: var(--table-ui-bg-color);
@@ -198,10 +199,13 @@ Section 2: This section contains the ui classes.
   font-size: inherit;
 }
 
-.table-header-control:focus {
+.table-header-control:focus,
+.table-control:focus {
   outline: 2px solid var(--table-ui-focus-color);
   outline-offset: 1px;
 }
+
+.table-control 
 
 .icon-btn {
   background-color: transparent;

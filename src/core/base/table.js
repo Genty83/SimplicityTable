@@ -7,7 +7,7 @@ import Pagination from "./pagination.js";
 
 export default class SimplicityTable extends TableRenderer {
   constructor(tableOptions = {}, paginationOptions = {}) {
-    super(tableOptions.tableId, tableOptions.pageLimitList);
+    super(tableOptions.tableId);
     this.tableOptions = {
       tableId: tableOptions.tableId,
       url: tableOptions.url,
@@ -23,6 +23,7 @@ export default class SimplicityTable extends TableRenderer {
 
     this.page = this.tableOptions.page;
     this.limit = this.tableOptions.limit;
+    this.pageLimitList = tableOptions.pageLimitList;
 
     this.init();
   }
@@ -50,7 +51,7 @@ export default class SimplicityTable extends TableRenderer {
       );
       this.dataObject = data;
       this.headers =this.dataObject.headers;
-      console.log(this.dataObject); // Remove at the end. Used for debugging
+      //console.log(this.dataObject); // Remove at the end. Used for debugging
       return this.dataObject;
     } catch (error) {
       console.error("Error retrieving data!!", error);

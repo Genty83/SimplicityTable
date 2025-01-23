@@ -55,12 +55,8 @@ export default class TableRenderer {
   }
 
   createBottomContainerElements() {
-    this.bottomLeftContainer = createNewElement({
-      attributes: { class: "flex-row align-center base-gap" },
-      appendTo: this.bottomContainer,
-    });
 
-    this.bottomRightContainer = createNewElement({
+    this.bottomLeftContainer = createNewElement({
       attributes: { class: "flex-row align-center base-gap" },
       appendTo: this.bottomContainer,
     });
@@ -70,17 +66,9 @@ export default class TableRenderer {
       appendTo: this.bottomContainer,
     });
 
-    this.rowsPerPageLabel = createNewElement({
-      tag: "label",
-      attributes: { for: "rows-per-page" },
-      textContent: "Rows per page:",
-      appendTo: this.bottomLeftContainer,
-    });
-
-    this.rowsPerPageSelect = createNewElement({
-      tag: "select",
-      attributes: { id: "rows-per-page", class: "rows-per-page table-control" },
-      appendTo: this.bottomLeftContainer,
+    this.bottomRightContainer = createNewElement({
+      attributes: { class: "flex-row align-center base-gap" },
+      appendTo: this.bottomContainer,
     });
   }
 }
