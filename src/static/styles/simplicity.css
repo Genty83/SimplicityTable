@@ -52,6 +52,15 @@
   --tooltip-fg-color: #b9c6e4;
   --tooltip-bd-color: #30363d;
   --tooltip-shadow-color: #30363d56;
+  /* Table Toast Variables */
+  --toast-bg-color: #20232a;
+  --toast-fg-color: #b9c6e4;
+  --toast-bd-color: #30363d;
+  --toast-shadow: 2px 2px 4px #b9c6e455;
+  --toast-danger-color: #c53030;
+  --toast-success-color: #7cca57;
+  --toast-info-color: #3182ce;
+  --toast-warning-color: #f59e0b;
 }
 
 /*
@@ -141,6 +150,8 @@ Section 2: This section contains the container styling.
 
 .action-container {
   display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .middle-container {
@@ -391,4 +402,75 @@ Section 2: This section contains the tooltip classes.
 @keyframes fadeOut {
   from { opacity: 1; }
   to { opacity: 0; }
+}
+
+/*
+TABLE TOAST STYLING
+-------------------------------------------------
+Section 2: This section contains the toast classes.
+*/
+.toast {
+  height: 45px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-inline: var(--table-base-padding);
+  border-radius: var(--table-bd-radius);
+  position: relative;
+  background-color: var(--toast-bg-color);
+  color: var(--toast-fg-color);
+  border: 2px solid var(--toast-bd-color);
+  box-shadow: var(--toast-shadow);
+  overflow: hidden;
+}
+
+.toast-icon {
+  font-size: 1.1rem;
+}
+
+.toast-icon.toast-danger {
+  color: var(--toast-danger-color);
+}
+
+.toast-icon.toast-success {
+  color: var(--toast-success-color);
+}
+
+.toast-icon.toast-info {
+  color: var(--toast-info-color);
+}
+
+.toast-icon.toast-warning {
+  color: var(--toast-warning-color);
+}
+
+.toast-close {
+  color: inherit;
+  position: absolute;
+  right: 1rem;
+}
+
+.toast-border {
+  height: 4px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.toast-border.toast-danger {
+  background-color: var(--toast-danger-color);
+}
+
+.toast-border.toast-success {
+  background-color: var(--toast-success-color);
+}
+
+.toast-border.toast-info {
+  background-color: var(--toast-info-color);
+}
+
+.toast-border.toast-warning {
+  background-color: var(--toast-warning-color);
 }

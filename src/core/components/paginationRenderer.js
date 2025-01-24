@@ -1,4 +1,5 @@
 import { createNewElement } from "../../utils/utils.js";
+import ToastMessaging from "../../utils/toasts.js";
 
 /**
  * Class responsible for rendering pagination controls for a table.
@@ -12,6 +13,9 @@ export default class PaginationRenderer {
     this.tableInstance = tableInstance;
     this.data = tableInstance.dataObject;
     this.buttons = this.data.buttons;
+
+    // Create a toast messaging instance
+    this.toast = new ToastMessaging(this.tableInstance.actionContainer);
   }
 
   /**
@@ -97,7 +101,12 @@ export default class PaginationRenderer {
       },
       eventHandlers: {
         change: (e) => {
+          this.tableInstance.filterParams = {};
           this.updateTable(e.target.value);
+          this.toast.showMessage(
+            `Warning! All filters will be reset. Showing ${e.target.value} rows per page.`,
+            "warning"
+          );
         },
       },
       appendTo: this.tableInstance.bottomLeftContainer,
@@ -137,6 +146,7 @@ export default class PaginationRenderer {
       eventHandlers: {
         change: (e) => {
           this.pageHandler(parseInt(e.target.value, 10));
+          this.toast.showMessage(`Navigating to page ${e.target.value}`, "info");
         },
       },
       appendTo: this.tableInstance.bottomRightContainer,

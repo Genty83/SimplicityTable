@@ -4,6 +4,7 @@ import FetchApi from "../api/fetchApi.js";
 import Headers from "./headers.js";
 import TableBody from "./body.js";
 import Pagination from "./pagination.js";
+import ToastMessaging from "../../utils/toasts.js";
 
 export default class SimplicityTable extends TableRenderer {
   constructor(tableOptions = {}, paginationOptions = {}) {
@@ -34,6 +35,8 @@ export default class SimplicityTable extends TableRenderer {
     await this.fetchData();
     // Render table elements
     this.renderElements();
+    // Add toast instance
+    this.toast = new ToastMessaging(this.actionContainer);
     // Render table
     this.update(true);
   }
@@ -107,8 +110,10 @@ export default class SimplicityTable extends TableRenderer {
   addFilterParams(header, value) {
     if (value === "All") {
       delete this.filterParams[header];
+      this.toast.showMessage(`Filter removed for ${header}`, "warning");
     } else {
       this.filterParams[header] = value;
+      this.toast.showMessage(`Filter added for ${header}`, "success");
     }
     this.update();
   }

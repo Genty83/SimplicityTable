@@ -1,4 +1,5 @@
 import { createNewElement } from "../../utils/utils.js";
+import ToastMessaging from "../../utils/toasts.js";
 
 /**
  * Class representing the header rendering for a table.
@@ -11,7 +12,8 @@ export default class HeaderRenderer {
   constructor(tableInstance) {
     this.tableInstance = tableInstance;
     this.data = tableInstance.dataObject.results;
-    console.log(this.data.length);
+    // Create a toast messaging instance
+    this.toast = new ToastMessaging(this.tableInstance.actionContainer);
   }
 
   /**
