@@ -6,8 +6,8 @@
   --table-shadow: 0 0 10px #30363d56;
   --table-width: 100%;
   --table-height: 100%;
-  --table-min-height: 800px;
-  --table-max-height: 800px;
+  --table-min-height: 80vh;
+  --table-max-height: 80vh;
   --table-bd-radius: 8px;
   --table-base-transition: all 0.4s ease;
   --table-outside-bd-width: 2px;
@@ -44,9 +44,8 @@
   --table-ui-checked-color: #fb7185;
   --table-ui-hover-fg-color: #818ba2;
   /** Loader Variables */
-  --loader-light-color: #b9c6e4;
-  --loader-medium-color: #30363d;
-  --loader-dark-color: #fb7185;
+  --loader-overlay-color: #b9c6e466;
+  --loader-icon-color: #b9c6e4;
   /* Tooltip Variables */
   --tooltip-bg-color: #20232a;
   --tooltip-fg-color: #b9c6e4;
@@ -263,6 +262,7 @@ Section 2: This section contains the ui classes.
 
 .pagination-btn.page-active {
   border: 2px solid var(--table-pagination-btn-fg-active-color);
+  pointer-events: none;
 }
 
 /*
@@ -313,34 +313,22 @@ TABLE LOADER STYLING
 Section 2: This section contains the loader classes.
 */
 .loader {
-  height: 3px;
-  width: 100%;
-  background-color: var(--loader-medium-color);
-  display: block; /* Make sure it's displayed */
-  overflow: hidden; /* Hide the part of the element that exceeds the bounds */
-}
-
-.loader::before {
-  content: "";
-  display: block;
   height: 100%;
   width: 100%;
-  background-color: var(--loader-light-color);
-  animation: loading 3s linear infinite;
+  background-color: var(--loader-overlay-color);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
 }
 
-@keyframes loading {
-  0% {
-    transform: translateX(-100%); background-color: var(--loader-medium-color);
-  }
-  50% {
-    transform: translateX(100%); background-color: var(--loader-light-color);
-  }
-  100% {
-    transform: translateX(100%); background-color: var(--loader-dark-color);
-  }
+.spinner {
+  color: var(--loader-icon-color);
+  font-size: 4rem;
 }
-
 
 /*
 TABLE TOOLTIP STYLING

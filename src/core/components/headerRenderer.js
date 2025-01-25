@@ -139,9 +139,13 @@ export default class HeaderRenderer {
       },
       appendTo: headerContent,
       eventHandlers: {
-        input: (e) => this.onFilterChange(e, columnIndex),
+        keydown: (e) => {
+          if (e.key === "Enter") {
+            this.onFilterChange(e, columnIndex);
+          }
+        },
       },
-    });
+    });    
 
     const select = createNewElement({
       tag: "select",

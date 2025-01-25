@@ -54,7 +54,7 @@ export default class PaginationRenderer {
         newPageNumber = 1;
         break;
       case this.data.labels.prev:
-        newPageNumber = this.data.prev;
+        newPageNumber = this.data.previous;
         break;
       case this.data.labels.next:
         newPageNumber = this.data.next;
@@ -131,9 +131,8 @@ export default class PaginationRenderer {
     this.tableInstance.bottomRightContainer.innerHTML = ""; // Clear the container
 
     createNewElement({
-      tag: "label",
-      attributes: { for: "go-to-page" },
-      textContent: "Go to page:",
+      tag: "p",
+      textContent: "Page",
       appendTo: this.tableInstance.bottomRightContainer,
     });
 
@@ -161,6 +160,12 @@ export default class PaginationRenderer {
       });
     }
     goToPageSelect.value = this.tableInstance.page;
+
+    createNewElement({
+      tag: "p",
+      textContent: `of ${this.data.totalPages} pages.`,
+      appendTo: this.tableInstance.bottomRightContainer,
+    });
   }
 
   /**

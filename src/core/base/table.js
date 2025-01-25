@@ -85,7 +85,7 @@ export default class SimplicityTable extends TableRenderer {
       if (refreshHeaders) this.renderHeaders();
       this.renderBody();
       this.hideLoader();
-    }, 2000);
+    }, 1000);
     this.updateRowsShownParagragh();
   }
 
@@ -100,7 +100,7 @@ export default class SimplicityTable extends TableRenderer {
   }
 
   showLoader() {
-    this.loader.style.display = "block";
+    this.loader.style.display = "flex";
   }
 
   hideLoader() {
@@ -108,7 +108,7 @@ export default class SimplicityTable extends TableRenderer {
   }
 
   addFilterParams(header, value) {
-    if (value === "All") {
+    if (value === "All" || value === "") {
       delete this.filterParams[header];
       this.toast.showMessage(`Filter removed for ${header}`, "warning");
     } else {

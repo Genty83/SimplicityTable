@@ -11,7 +11,7 @@ export default class TableRenderer {
     this.createContainerElements();
     this.createTableElements();
     this.createTopContainerElements();
-    this.createActionContainerElements();
+    this.createLoader();
     this.createBottomContainerElements();
   }
 
@@ -78,10 +78,16 @@ export default class TableRenderer {
     });
   }
 
-  createActionContainerElements() {
+  createLoader() {
     this.loader = createNewElement({
       attributes: { class: "loader" },
-      appendTo: this.actionContainer,
+      appendTo: this.container,
+      children: [
+        createNewElement({
+          tag: "i",
+          attributes: { class: "spinner fa fa-spinner fa-spin" }
+        })
+      ]
     });
   }
 

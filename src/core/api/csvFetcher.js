@@ -69,17 +69,23 @@ export default class CsvFetcher {
   filterData(data) {
     return data.filter((row) => {
       return Object.entries(this.filterParams).every(([key, value]) => {
-        if (row[key]) {
-          return row[key]
-            .toString()
-            .toLowerCase()
-            .includes(value.toLowerCase());
+        if (row[key] !== undefined && row[key] !== null) {
+          const rowValue = row[key].toString().toLowerCase();
+          const filterValue = value.toString().toLowerCase();
+  
+          // Check if the row value is a number and if the filter value is a number
+          if (!isNaN(rowValue) && !isNaN(filterValue)) {
+            return parseFloat(rowValue) === parseFloat(filterValue);
+          }
+  
+          // Fallback to string comparison if not numbers
+          return rowValue.includes(filterValue);
         }
         return false;
       });
     });
   }
-
+  
   getHeaders() {
     return this.headers;
   }
