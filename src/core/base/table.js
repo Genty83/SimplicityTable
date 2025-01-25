@@ -16,6 +16,7 @@ export default class SimplicityTable extends TableRenderer {
       page: tableOptions.page,
       limit: tableOptions.limit,
       pageLimitList: tableOptions.pageLimitList,
+      themePath: tableOptions.themePath,
     };
     this.paginationOptions = {
       onEnds: paginationOptions.onEnds,
@@ -31,12 +32,18 @@ export default class SimplicityTable extends TableRenderer {
   }
 
   async init() {
+    // Apply the theme
+    await this.applyTheme();
+
     // Fetch data
     await this.fetchData();
+    
     // Render table elements
     this.renderElements();
+    
     // Add toast instance
     this.toast = new ToastMessaging(this.actionContainer);
+    
     // Render table
     this.update(true);
   }
@@ -60,6 +67,19 @@ export default class SimplicityTable extends TableRenderer {
       return this.dataObject;
     } catch (error) {
       console.error("Error retrieving data!!", error);
+    }
+  }
+
+  async applyTheme() {
+    try {
+      const response = await fetch(this.tableOptions.themePath);
+      const themeVariables = await response.json();
+      
+      Object.keys(themeVariables).forEach(key => {
+        document.documentElement.style.setProperty(`--${key}`, themeVariables[key]);
+      });
+    } catch (error) {
+      console.error("Error applying theme!!", error);
     }
   }
 
