@@ -106,7 +106,10 @@ export default class HeaderRenderer {
 
     createNewElement({
       tag: "button",
-      attributes: { class: "icon-btn table-sort-btn" },
+      attributes: {
+        class: "icon-btn table-sort-btn tooltip-bottom-right",
+        tooltip: `Sort by ${header}`,
+      },
       appendTo: headerTitle,
       children: [
         createNewElement({
@@ -145,7 +148,7 @@ export default class HeaderRenderer {
           }
         },
       },
-    });    
+    });
 
     const select = createNewElement({
       tag: "select",

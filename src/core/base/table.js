@@ -5,6 +5,7 @@ import Headers from "./headers.js";
 import TableBody from "./body.js";
 import Pagination from "./pagination.js";
 import ToastMessaging from "../../utils/toasts.js";
+import TopMenu from "./topMenu.js";
 
 export default class SimplicityTable extends TableRenderer {
   constructor(tableOptions = {}, paginationOptions = {}) {
@@ -34,16 +35,15 @@ export default class SimplicityTable extends TableRenderer {
   async init() {
     // Apply the theme
     await this.applyTheme();
-
     // Fetch data
     await this.fetchData();
-    
     // Render table elements
     this.renderElements();
-    
+    // Add top menu
+    this.topMenu = new TopMenu(this);
+    this.topMenu.createTopMenu();
     // Add toast instance
     this.toast = new ToastMessaging(this.actionContainer);
-    
     // Render table
     this.update(true);
   }

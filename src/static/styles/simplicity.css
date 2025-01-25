@@ -342,14 +342,14 @@ Section 2: This section contains the tooltip classes.
 [tooltip]:hover::after {
   content: attr(tooltip);
   position: absolute;
-  padding: 0.3rem;
+  padding: 0.6rem;
   background-color: var(--tooltip-bg-color);
   color: var(--tooltip-fg-color);
   border: 1px solid var(--tooltip-bd-color);
-  border-radius: var(--base-border-radius);
+  border-radius: var(--table-bd-radius);
   box-shadow: 0 0 5px var(--tooltip-shadow-color);
   font-size: 0.8rem;
-  z-index: 1;
+  z-index: 99999;
   text-wrap: nowrap;
   font-size: 0.7rem;
   opacity: 0;
@@ -461,4 +461,45 @@ Section 2: This section contains the toast classes.
 
 .toast-border.toast-warning {
   background-color: var(--toast-warning-color);
+}
+
+/*
+TABLE TOP MENU STYLING
+-------------------------------------------------
+Section 2: This section contains the top menu classes.
+*/
+
+.top-menu {
+  height: 35px;
+  display: flex;
+  border: 1px solid var(--table-ui-bd-color);
+  border-radius: var(--table-bd-radius);
+}
+
+.top-menu-btn {
+  height: 100%;
+  width: 40px;
+  background-color: transparent;
+  border: none;
+  border-right: 1px solid var(--table-ui-bd-color);
+  display: grid;
+  place-items: center;
+  color: var(--table-ui-fg-color);
+  cursor: pointer;
+  transition: var(--table-base-transition);
+}
+
+.top-menu-btn:hover {
+  background-color: var(--table-ui-bd-color);
+}
+
+.top-menu-btn:last-child {
+  border-right: none;
+  border-top-right-radius: var(--table-bd-radius);
+  border-bottom-right-radius: var(--table-bd-radius);
+}
+
+.top-menu-btn:first-child {
+  border-top-left-radius: var(--table-bd-radius);
+  border-bottom-left-radius: var(--table-bd-radius);
 }
