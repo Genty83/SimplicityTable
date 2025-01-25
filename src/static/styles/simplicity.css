@@ -44,7 +44,7 @@
   --table-ui-checked-color: #fb7185;
   --table-ui-hover-fg-color: #818ba2;
   /** Loader Variables */
-  --loader-overlay-color: #b9c6e466;
+  --overlay-color: #b9c6e466;
   --loader-icon-color: #b9c6e4;
   /* Tooltip Variables */
   --tooltip-bg-color: #20232a;
@@ -150,7 +150,7 @@ Section 2: This section contains the container styling.
 .action-container {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  padding-inline: var(--table-base-padding);
 }
 
 .middle-container {
@@ -315,7 +315,7 @@ Section 2: This section contains the loader classes.
 .loader {
   height: 100%;
   width: 100%;
-  background-color: var(--loader-overlay-color);
+  background-color: var(-- overlay-color);
   display: none;
   justify-content: center;
   align-items: center;
@@ -411,6 +411,7 @@ Section 2: This section contains the toast classes.
   border: 2px solid var(--toast-bd-color);
   box-shadow: var(--toast-shadow);
   overflow: hidden;
+  margin-block: 0.5rem;
 }
 
 .toast-icon {
@@ -502,4 +503,59 @@ Section 2: This section contains the top menu classes.
 .top-menu-btn:first-child {
   border-top-left-radius: var(--table-bd-radius);
   border-bottom-left-radius: var(--table-bd-radius);
+}
+
+/*
+TABLE MODAL WINDOW STYLING
+-------------------------------------------------
+Section 2: This section contains the modal window classes.
+*/
+
+.modal {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: auto;
+  background-color: var(--table-ui-bg-color);
+  color: var(--table-ui-fg-color);
+  border: 1px solid var(--table-ui-bd-color);
+  border-radius: var(--table-bd-radius);
+  z-index: 9999;
+  padding: 4px;
+  font-family: var(--table-font-family);
+  font-size: var(--table-font-size);
+  gap: 0.5rem;
+  box-shadow: var(--table-ui-shadow);
+}
+
+.modal-close {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  color: var(--table-ui-fg-color);
+}
+
+.modal-content {
+  border: 1px solid var(--table-ui-bd-color);
+  border-radius: var(--table-bd-radius);
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+}
+
+.resizer {
+  cursor: se-resize;
+  width: 12px;
+  align-self: flex-end;
+  filter: invert(1) brightness(50%) invert(1);
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--overlay-color);
+  z-index: 9998;
 }

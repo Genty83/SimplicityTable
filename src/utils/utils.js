@@ -8,7 +8,13 @@
 const createElement = (tag, attributes) => {
   const element = document.createElement(tag);
   for (const [key, value] of Object.entries(attributes)) {
-    element.setAttribute(key, value);
+    if (key === 'style' && typeof value === 'object') {
+      for (const [styleKey, styleValue] of Object.entries(value)) {
+        element.style[styleKey] = styleValue;
+      }
+    } else {
+      element.setAttribute(key, value);
+    }
   }
   return element;
 };
